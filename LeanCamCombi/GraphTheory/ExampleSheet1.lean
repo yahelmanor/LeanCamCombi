@@ -84,7 +84,11 @@ lemma q5 [Fintype α] (G : SimpleGraph α) [DecidableRel G.Adj] (hG : G.IsAcycli
     G.edgeFinset.card ≤ card α - 1 := by
   cases isEmpty_or_nonempty α
   · simp [Subsingleton.elim G ⊥]
-  sorry
+  · classical
+    obtain ⟨T, hGT, -, hT⟩ := connected_top.exists_isTree_le_of_le_of_isAcyclic le_top hG
+    have h1 := Finset.card_le_card (edgeFinset_subset_edgeFinset.mpr hGT)
+    have h2 := hT.card_edgeFinset
+    lia
 
 /-!
 ### Question 6
